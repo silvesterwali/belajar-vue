@@ -1,7 +1,10 @@
 <template>
   <div class="container">
     <h4>Belajar Table</h4>
-    <BTable :table-option="tableOption" :items="items" >
+    <div class="form-group">
+      <input class="form-control" placeholder="cari" v-model="search" >
+    </div>
+    <BTable :table-option="tableOption" :filterItems="['name','id']" :items="items" :search="search" >
         <template #actions="{item}">
             <button class="btn btn-primary btn-sm">{{item.id}}</button>
         </template>
@@ -23,6 +26,7 @@ export default {
   },
   data() {
     return {
+      search:null,
       tableOption: [
         {
           key: "title",

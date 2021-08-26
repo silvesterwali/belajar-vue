@@ -10,9 +10,9 @@
           </tr>
         </thead>
       </slot>
-      <slot name="tbody" :item="items">
+      <slot name="tbody" :item="itemFilter">
         <tbody>
-          <tr v-for="(item, i) in items" :key="i">
+          <tr v-for="(item, i) in itemFilter" :key="i">
             <td v-for="(key, idx) in tableItemsKey" :key="idx">
               <slot :name="key" :item="item">{{ item[key] }}</slot>
             </td>
@@ -24,9 +24,7 @@
 </template>
 
 <script>
-import table from "../../views/table.vue";
 export default {
-  components: { table },
   props: {
     tableOption: {
       type: Array,
@@ -36,19 +34,54 @@ export default {
       type: Array,
       default: () => null,
     },
+    search: {
+      type: String,
+      default: null,
+    },
+    filterItems: {
+      type: Array,
+      default: null,
+    },
   },
   computed: {
     tableHeader() {
       if (this.tableOption === null) {
         return [];
       }
-      return this.tableOption.map((el) => el.label);
+      return this.tableOption.map((el) => el.label ?? el.key);
     },
     tableItemsKey() {
       if (this.tableOption === null) {
         return [];
       }
       return this.tableOption.map((el) => el.key);
+    },
+    tableFilter() {
+      if (this.search === '' || this.search === null) {
+        return null;
+      }
+      const obj = {};
+
+      if (this.filterItems !== null) {
+        this.filterItems.map((el) => (obj[el] = this.search));
+      } else {
+        this.tableOption.map((el) => (obj[el.key] = this.search));
+      }
+      return obj;
+    },
+
+    itemFilter() {
+      if (this.tableFilter === null || this.tableFilter===undefined) {
+        return this.items;
+      }
+
+      const self = this;
+      return this.items.filter(function(el) {
+        if(!el['title'].toLowerCase().includes(self.search.toLowerCase())){
+          return false
+        }
+        return true;
+      });
     },
   },
 };

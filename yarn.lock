@@ -2879,6 +2879,11 @@ csso@^4.0.2:
   dependencies:
     css-tree "^1.1.2"
 
+currency-to-words@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/currency-to-words/-/currency-to-words-0.4.0.tgz#12af1dedd22e21d50f5dab261e146c1a154a142c"
+  integrity sha512-mWMMnRAG5OkTyWOU3stt/yPodGosL57njXlu+ZW40FPYMevQbl7xGmE0c9HBfhv364NGxg4/bUHlx75WfCHt7Q==
+
 cyclist@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
